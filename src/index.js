@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useMemo } from "react";
 import ReactDOM from "react-dom";
-import App from "./screens/App";
+import App from "./App";
 import { createTheme, useTheme, ThemeProvider } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import ThemeState, { ThemeContext } from "./context/Theme/ThemeState";

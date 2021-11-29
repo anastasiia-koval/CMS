@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import Navbar from "../components/navbar/Navbar";
-import Login from "./Login/Login";
-import MainPage from "./MainPage/MainPage";
-import BlogPage from "./BlogPage/BlogPage";
-import PostDescription from "../components/PostComponent/PostDescription";
-import PrivateRoute from "../util/AuthVerification/PrivateRoute";
-import UserContext from "../context/User/UserContext";
-import Specialists from "../components/specialists/Specialists";
+import Navbar from "./components/navbar/Navbar";
+import Login from "./screens/Login/Login";
+import MainPage from "./screens/MainPage/MainPage";
+import BlogPage from "./screens/BlogPage/BlogPage";
+import PostDescription from "./components/PostComponent/PostDescription";
+import PrivateRoute from "./util/AuthVerification/PrivateRoute";
+import UserContext from "./context/User/UserContext";
+import Specialists from "./components/specialists/Specialists";
 
 const useStyles = makeStyles((theme) => ({
   root: {
