@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "specialists",
+  "info": {
+    "name": "specialist",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "surname": {
+      "type": "string"
+    },
+    "available": {
+      "type": "boolean"
+    },
+    "job": {
+      "model": "job"
+    }
+  }
+}
