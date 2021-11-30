@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PostComponent from "../../components/PostComponent/PostComponent";
 import Typography from "@material-ui/core/Typography";
+const { REACT_APP_MY_ENV } = process.env;
 
 const BlogPage = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState();
   useEffect(() => {
     axios
-      .get("/posts")
+      .get(`${REACT_APP_MY_ENV}/posts`)
       .then((res) => {
         setPosts(res.data);
         console.log("res :>> ", res);

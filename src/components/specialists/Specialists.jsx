@@ -9,6 +9,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import axios from "axios";
+const { REACT_APP_MY_ENV } = process.env;
 
 const useStyles = makeStyles({
   table: {
@@ -22,7 +23,7 @@ const Specialists = () => {
 
   useEffect(() => {
     axios
-      .get("/specialists")
+      .get(`${REACT_APP_MY_ENV}/specialists`)
       .then((res) => {
         setSpecialists(res.data);
         console.log("res :>> ", res);

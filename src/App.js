@@ -9,6 +9,7 @@ import PostDescription from "./components/PostComponent/PostDescription";
 import PrivateRoute from "./util/AuthVerification/PrivateRoute";
 import UserContext from "./context/User/UserContext";
 import Specialists from "./components/specialists/Specialists";
+// const { REACT_APP_MY_ENV } = process.env;
 
 const useStyles = makeStyles((theme) => ({
   root: {

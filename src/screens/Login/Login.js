@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { fields } from "./fields";
 import axios from "../../util/axios";
 import UserContext from "../../context/User/UserContext";
+const { REACT_APP_MY_ENV } = process.env;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,7 +67,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("/auth/local", {
+      .post(`${REACT_APP_MY_ENV}/auth/local`, {
         identifier: values.email,
         password: values.password,
       })

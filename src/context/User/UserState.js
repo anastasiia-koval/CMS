@@ -9,7 +9,7 @@ const UserState = (props) => {
     confirmed: false,
     email: "",
     username: "",
-    loggedIn: false,
+    isLoggedIn: false,
     role: {
       name: "",
       type: "",

@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TodayIcon from "@material-ui/icons/Today";
 import { useNavigate } from "react-router-dom";
 import Button from "@material-ui/core/Button";
+const { REACT_APP_MY_ENV } = process.env;
 
 const PostDescription = () => {
   const { id } = useParams();
@@ -22,7 +23,7 @@ const PostDescription = () => {
   };
   useEffect(() => {
     axios
-      .get(`/posts/${id}`)
+      .get(`${REACT_APP_MY_ENV}/posts/${id}`)
       .then((res) => {
         console.log("resData :>> ", res.data);
         setPost(res.data);
