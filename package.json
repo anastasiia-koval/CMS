@@ -54,6 +54,5 @@
     "@babel/core": "^7.16.0",
     "@babel/preset-flow": "^7.16.0",
     "flow-bin": "^0.165.1"
-  },
-  "proxy": "http://localhost:1337"
+  }
 }
