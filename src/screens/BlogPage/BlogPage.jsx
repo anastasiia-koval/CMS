@@ -31,7 +31,7 @@ const BlogPage = () => {
             return (
               <PostComponent
                 key={post.id}
-                picture={post.picture.url}
+                picture={`${REACT_APP_MY_ENV}${post.picture.url}`}
                 title={post.title}
                 onClick={() => {
                   navigate(`/blog/${post.id}`);

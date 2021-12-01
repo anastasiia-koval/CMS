@@ -7,6 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TodayIcon from "@material-ui/icons/Today";
 import { useNavigate } from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import Markdown from "react-markdown";
 const { REACT_APP_MY_ENV } = process.env;
 
 const PostDescription = () => {
@@ -97,7 +98,7 @@ const PostDescription = () => {
         </div>
         <div style={{ width: "100%", height: "300px", marginBottom: "10px" }}>
           <img
-            src={post && post.picture.url}
+            src={post && `${REACT_APP_MY_ENV}${post.picture.url}`}
             alt=""
             style={{ objectFit: "cover", width: "100%", height: "100%" }}
           />
@@ -110,7 +111,7 @@ const PostDescription = () => {
 
       <div>
         <Typography gutterBottom variant="body1">
-          {post && post.description}
+          {post && <Markdown children={post.description} />}
         </Typography>
       </div>
     </div>
