@@ -12,29 +12,31 @@ import Collapsible from "react-collapsible-paragraph";
 const PostComponent = (props) => {
   const useStyles = makeStyles({
     root: {
-      width: 345,
+      minWidth: "350px",
+      maxWidth: "500px",
+      flex: "1",
     },
     media: {
       height: 300,
+      objectFit: "cover",
+      position: "center",
     },
   });
 
   const classes = useStyles();
   return (
     <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia className={classes.media} image={props.picture} />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            <Collapsible lines={2} locales={"none"}>
-              {props.title}
-            </Collapsible>
-          </Typography>
-        </CardContent>
-      </CardActionArea>
+      <CardMedia className={classes.media} image={props.picture} />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="h2">
+          <Collapsible lines={2} locales={"none"}>
+            {props.title}
+          </Collapsible>
+        </Typography>
+      </CardContent>
       <CardActions>
         <Button size="small" color="primary" onClick={props.onClick}>
-          Learn More
+          Zobacz więcej
         </Button>
       </CardActions>
     </Card>

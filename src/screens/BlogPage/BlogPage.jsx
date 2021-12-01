@@ -21,11 +21,11 @@ const BlogPage = () => {
   }, []);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: "flex", flexDirection: "column", }}>
       <Typography gutterBottom variant="h5" component="h2">
         Blog Serwisowy
       </Typography>
-      <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
+      <div style={{ display: "flex", gap: "20px", marginTop: "20px", flexWrap: "wrap", justifyContent: "center" }}>
         {posts &&
           posts.map((post) => {
             return (

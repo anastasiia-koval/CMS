@@ -49,6 +49,9 @@ const PostDescription = () => {
       border: "1px solid rgba(0, 0, 0, 0.23)",
       backgroundColor: "#FFFFFFB7",
     },
+    content: {
+      textAlign: "justify",
+    }
   });
   const classes = useStyles();
   return (
@@ -59,7 +62,7 @@ const PostDescription = () => {
           startIcon={<ArrowBackRoundedIcon />}
           onClick={() => navigate(-1)}
         >
-          Go Back
+          Wróć
         </Button>
       </div>
 
@@ -91,10 +94,11 @@ const PostDescription = () => {
               {post && convertData(post.published_at)}
             </Typography>
           </div>
-
-          <Typography gutterBottom className={classes.userName}>
-            {/* Created by {post && post.userID.username} */}
-          </Typography>
+          {post && post.userID.username && (
+            <Typography gutterBottom className={classes.userName}>
+              Dodano przez {post.userID.username}
+            </Typography>
+          )}
         </div>
         <div style={{ width: "100%", height: "300px", marginBottom: "10px" }}>
           <img
@@ -103,14 +107,12 @@ const PostDescription = () => {
             style={{ objectFit: "cover", width: "100%", height: "100%" }}
           />
         </div>
-
-        <Typography gutterBottom variant="h5" component="h2">
+        <Typography className={classes.content} gutterBottom variant="h1" component="h1">
           {post && post.title}
         </Typography>
       </div>
-
       <div>
-        <Typography gutterBottom variant="body1">
+        <Typography className={classes.content} gutterBottom variant="body1">
           {post && <Markdown children={post.description} />}
         </Typography>
       </div>
