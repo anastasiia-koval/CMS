@@ -5,7 +5,7 @@ axios.interceptors.request.use((config) => {
   const accessToken = window.localStorage.getItem("jwt");
   if (accessToken) {
     config.headers = {
-      Authorization: "Bearer" + accessToken,
+      Authorization: "Bearer " + accessToken,
     };
   }
   return config;
