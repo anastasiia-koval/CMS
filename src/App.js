@@ -1,5 +1,5 @@
 import React, { useContext, createContext } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "./components/navbar/Navbar";
 import Login from "./screens/Login/Login";
@@ -31,23 +31,17 @@ const App = () => {
   const classes = useStyles();
   return (
     <>
-      <Router>
-        <Navbar />
-        <div className={classes.root}>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/blog/:id" element={<PostDescription />} />
-            <Route path="/specialists" element={<Specialists />} />
-          </Routes>
-          <PrivateRoute
-              path="/blog"
-              Component={BlogPage}
-              loggedIn={isLoggedIn}
-            />
-        </div>
-      </Router>
+      <Navbar />
+      <div className={classes.root}>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:id" element={<PostDescription />} />
+          <Route path="/specialists" element={<Specialists />} />
+        </Routes>
+      </div>
     </>
   );
 };

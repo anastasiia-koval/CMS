@@ -6,13 +6,29 @@ export const ThemeContext = createContext();
 const ThemeReducer = (state, action) => {
   switch (action.type) {
     case types.CHANGE_THEME: {
-      localStorage.setItem("theme", action.theme)
+      localStorage.setItem("theme", action.theme);
       return {
         ...state,
         theme: action.theme,
         hasChanged: action.hasChanged ? true : false,
       };
     }
+
+    case types.OPEN_SNACKBAR: {
+      return {
+        ...state,
+        snackbarOpen: true,
+        snackbarMessage: action.message,
+        snackbarError: action.error,
+      };
+    }
+    case types.CLOSE_SNACKBAR: {
+      return {
+        ...state,
+        snackbarOpen: false,
+      };
+    }
+
     default: {
       return {
         ...state,
@@ -23,8 +39,11 @@ const ThemeReducer = (state, action) => {
 
 const ThemeState = (props) => {
   const initialState = {
-    theme: localStorage.getItem("theme") ?? 'light',
+    theme: localStorage.getItem("theme") ?? "light",
     hasChanged: false,
+    snackbarOpen: false,
+    snackbarError: false,
+    snackbarMessage: "",
   };
 
   const [state, dispatch] = useReducer(ThemeReducer, initialState);
@@ -32,8 +51,14 @@ const ThemeState = (props) => {
   const setTheme = (theme, hasChanged) =>
     dispatch({ type: types.CHANGE_THEME, theme, hasChanged });
 
+  const openSnackbar = (error, message) =>
+    dispatch({ type: types.OPEN_SNACKBAR, error, message });
+  const closeSnackbar = () => dispatch({ type: types.CLOSE_SNACKBAR });
+
   return (
-    <ThemeContext.Provider value={{ setTheme, ...state }}>
+    <ThemeContext.Provider
+      value={{ setTheme, openSnackbar, closeSnackbar, ...state }}
+    >
       {props.children}
     </ThemeContext.Provider>
   );
