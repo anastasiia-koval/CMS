@@ -1,9 +1,8 @@
 import React, { useState, useContext } from "react";
-import { useNavigate, Link as RouterLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PaddedSite from "../../components/PaddedSite/PaddedSite";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link"
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Collapse from "@material-ui/core/Collapse";
@@ -12,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { fields } from "./fields";
 import axios from "../../util/axios";
 import UserContext from "../../context/User/UserContext";
+import { hasErrors, validateForm } from "../../util/validateForm";
 const { REACT_APP_MY_ENV } = process.env;
 
 const useStyles = makeStyles((theme) => ({
@@ -51,9 +51,10 @@ const isDisabled = (values) => {
   return isDisabled;
 };
 
-const Login = () => {
+const Register = () => {
   const classes = useStyles();
   const [values, setValues] = useState(createValues());
+  const [errors, setErrors] = useState({});
   const [error, setError] = useState(false);
   const navigate = useNavigate();
   const { handleLogin } = useContext(UserContext);
@@ -67,9 +68,17 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const errors = validateForm(fields, values);
+    setErrors(errors);
+    if (hasErrors(errors)) {
+      setError(-2);
+      return;
+    }
+
     axios
-      .post(`${REACT_APP_MY_ENV}/auth/local`, {
-        identifier: values.email,
+      .post(`${REACT_APP_MY_ENV}/auth/local/register`, {
+        email: values.email,
+        username: values.username,
         password: values.password,
       })
       .then((res) => {
@@ -84,7 +93,7 @@ const Login = () => {
   return (
     <Card elevation={3} className={classes.root}>
       <Typography variant="h1" component="h1" className={classes.header}>
-        Zaloguj się
+        Zarejestruj się
       </Typography>
       <form className={classes.column} onSubmit={handleSubmit}>
         {fields.map((field) => (
@@ -93,32 +102,32 @@ const Login = () => {
             variant="outlined"
             label={field.name}
             name={field.id}
-            type={field.type}
+            type={field.type ? field.type : "text"}
+            autoComplete={field.autocomplete}
             className={classes.input}
+            error={!!errors[field.id]}
+            helperText={errors[field.id]}
             onChange={(e) => handleChange(e, field.id)}
           />
         ))}
         <Collapse in={!!error}>
           <Alert severity="error" className={classes.input}>
-            {error === 400
-              ? "Błędne dane logowania"
+            {error === -2
+              ? "Popraw błędy w formularzu"
               : "Wystąpił nieznany błąd, spróbuj ponownie"}
           </Alert>
         </Collapse>
-        <Typography className={classes.input}>
-          Nie masz jeszcze konta? <Link component={RouterLink} to="/register">Stwórz je teraz!</Link>
-          </Typography>
         <Button
           variant="outlined"
           color="primary"
           type="submit"
           disabled={isDisabled(values)}
         >
-          Zaloguj się
+          Stwórz konto
         </Button>
       </form>
     </Card>
   );
 };
 
-export default PaddedSite(Login);
+export default PaddedSite(Register);
