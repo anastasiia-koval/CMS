@@ -93,7 +93,7 @@ const PostDescription = () => {
           </div>
 
           <Typography gutterBottom className={classes.userName}>
-            Created by {post && post.userID.username}
+            {/* Created by {post && post.userID.username} */}
           </Typography>
         </div>
         <div style={{ width: "100%", height: "300px", marginBottom: "10px" }}>

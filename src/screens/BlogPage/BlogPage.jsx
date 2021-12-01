@@ -37,7 +37,7 @@ const BlogPage = () => {
                   navigate(`/blog/${post.id}`);
                 }}
                 published_at={post.published_at}
-                userName={post.userID.username && post.userID.username}
+                // userName={post.userID.username && post.userID.username}
               />
             );
           })}
