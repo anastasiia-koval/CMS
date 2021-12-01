@@ -4,13 +4,15 @@ import MuiToolbar from "@material-ui/core/Toolbar";
 import MuiLink from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
+import Avatar from "@material-ui/core/Avatar";
 import Zoom from "@material-ui/core/Zoom";
 import LightThemeIcon from "@material-ui/icons/WbSunnyOutlined";
 import DarkThemeIcon from "@material-ui/icons/Brightness2Outlined";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { ThemeContext } from "../../context/Theme/ThemeState";
 import UserContext from "../../context/User/UserContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -44,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  activeLink: {
+    fontWeight: "bold",
+  },
   spacer: {
     flexGrow: "1",
   },
@@ -59,12 +64,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const links = [
+  { name: "Blog", href: "/blog" },
+  { name: "Pracownicy", href: "/specialists" },
+];
+
 const Navbar = () => {
   const classes = useStyles();
   const { theme, setTheme } = useContext(ThemeContext);
-  const { isLoggedIn, handleLogout } = useContext(UserContext);
+  const { username, isLoggedIn, handleLogout } = useContext(UserContext);
   const navigate = useNavigate();
-  console.log("isLoggedIn :>> ", isLoggedIn);
+  const location = useLocation();
 
   const handleLoginButtonClick = () => {
     if (isLoggedIn) {
@@ -81,12 +91,22 @@ const Navbar = () => {
         <MuiLink underline="none" to="/" component={Link}>
           <Typography className={classes.name}>Serwis samochodowy</Typography>
         </MuiLink>
-        <MuiLink underline="none" to="/blog" component={Link}>
-          <Typography className={classes.link}>Blog</Typography>
-        </MuiLink>
-        <MuiLink underline="none" to="/specialists" component={Link}>
-          <Typography className={classes.link}>Specialists</Typography>
-        </MuiLink>
+        {links.map((link) => (
+          <MuiLink
+            underline="none"
+            component={Link}
+            to={link.href}
+            key={link.name}
+          >
+            <Typography
+              className={clsx(classes.link, {
+                [classes.activeLink]: location.pathname.includes(link.href),
+              })}
+            >
+              {link.name}
+            </Typography>
+          </MuiLink>
+        ))}
         <div className={classes.spacer} />
         <Button
           size="small"
@@ -102,6 +122,15 @@ const Navbar = () => {
             <DarkThemeIcon className={classes.icon} />
           </Zoom>
         </Button>
+        {isLoggedIn && (
+          <Button
+            variant="outlined"
+            className={classes.button}
+            startIcon={<Avatar className={classes.iconSpacer} />}
+          >
+            {username}
+          </Button>
+        )}
         <Button variant="outlined" onClick={() => handleLoginButtonClick()}>
           {isLoggedIn ? "Wyloguj się" : "Zaloguj się"}
         </Button>
