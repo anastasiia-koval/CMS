@@ -7,9 +7,10 @@ import Register from "./screens/Register/Register";
 import MainPage from "./screens/MainPage/MainPage";
 import BlogPage from "./screens/BlogPage/BlogPage";
 import PostDescription from "./components/PostComponent/PostDescription";
-import PrivateRoute from "./util/AuthVerification/PrivateRoute";
+import { useParams } from "react-router-dom";
 import UserContext from "./context/User/UserContext";
 import Specialists from "./components/specialists/Specialists";
+import Cars from "./components/cars/Cars";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,10 +41,17 @@ const App = () => {
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<PostDescription />} />
           <Route path="/specialists" element={<Specialists />} />
+          <Route path="/cars/:user_id" element={<TmpCars />} />
         </Routes>
       </div>
     </>
   );
 };
+
+//TODO remove it
+const TmpCars = () => {
+  const { user_id } = useParams(3);
+  return <Cars userId={user_id} />
+}
 
 export default App;
