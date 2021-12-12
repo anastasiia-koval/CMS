@@ -11,6 +11,8 @@ import { useParams } from "react-router-dom";
 import UserContext from "./context/User/UserContext";
 import Specialists from "./components/specialists/Specialists";
 import Cars from "./components/cars/Cars";
+import Services from "./components/services/Services";
+import Reservations from "./components/reservations/Reservations";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +44,8 @@ const App = () => {
           <Route path="/blog/:id" element={<PostDescription />} />
           <Route path="/specialists" element={<Specialists />} />
           <Route path="/cars/:user_id" element={<TmpCars />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/reservations/:user_id" element={<TmpReservations />} />
         </Routes>
       </div>
     </>
@@ -50,8 +54,14 @@ const App = () => {
 
 //TODO remove it
 const TmpCars = () => {
-  const { user_id } = useParams(3);
+  const { user_id } = useParams();
   return <Cars userId={user_id} />
+}
+
+//TODO remove it
+const TmpReservations = () => {
+  const { user_id } = useParams();
+  return <Reservations userId={user_id} />
 }
 
 export default App;

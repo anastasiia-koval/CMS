@@ -67,6 +67,10 @@ const useStyles = makeStyles((theme) => ({
 const links = [
   { name: "Blog", href: "/blog" },
   { name: "Pracownicy", href: "/specialists" },
+  //TODO remove cars
+  { name: "Cars", href: "/cars/3" },
+  { name: "Services", href: "/services" },
+  { name: "Reservations", href: "/reservations/3" },
 ];
 
 const Navbar = () => {

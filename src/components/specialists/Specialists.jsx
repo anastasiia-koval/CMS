@@ -8,6 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import axios from "axios";
+import getServicesString from "../../util/servicesUtil";
 const { REACT_APP_MY_ENV } = process.env;
 
 const useStyles = makeStyles({
@@ -48,7 +49,7 @@ const Specialists = () => {
             <TableRow key={specialist.id}>
               <TableCell>{specialist.name}</TableCell>
               <TableCell>{specialist.surname}</TableCell>
-              <TableCell>{specialist.job.jobTitle}</TableCell>
+              <TableCell>{getServicesString(specialist.services)}</TableCell>
               <TableCell>
                 {specialist.available ? "Available" : "Not available"}
               </TableCell>
