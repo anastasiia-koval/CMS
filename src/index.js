@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useMemo } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import { CssBaseline } from "@material-ui/core";
 import { createTheme, useTheme, ThemeProvider } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import ThemeState, { ThemeContext } from "./context/Theme/ThemeState";
@@ -10,7 +11,8 @@ import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import Snackbar from "./components/Snackbar/Snackbar";
 
 const Wrapper = ({ children }) => {
-  const { theme, hasChanged, setTheme, openSnackbar, closeSnackbar } = useContext(ThemeContext);
+  const { theme, hasChanged, setTheme, openSnackbar, closeSnackbar } =
+    useContext(ThemeContext);
   const defaultTheme = useTheme();
   interceptor(useNavigate(), openSnackbar);
   // const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -96,8 +98,10 @@ ReactDOM.render(
       <UserState>
         <Router>
           <Wrapper>
-            <App />
-            <Snackbar />
+            <CssBaseline>
+              <App />
+              <Snackbar />
+            </CssBaseline>
           </Wrapper>
         </Router>
       </UserState>

@@ -28,9 +28,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export const GlobalContext = createContext({});
+
 const App = () => {
-  const { isLoggedIn, handleLogout } = useContext(UserContext);
   const classes = useStyles();
   return (
     <>
