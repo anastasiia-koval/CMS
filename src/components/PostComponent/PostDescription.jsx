@@ -1,4 +1,4 @@
-import axios from "../../util/axios";
+import axiosInstance from "../../util/axiosInstance";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
@@ -23,7 +23,7 @@ const PostDescription = () => {
     );
   };
   useEffect(() => {
-    axios
+    axiosInstance
       .get(`${REACT_APP_MY_ENV}/posts/${id}`)
       .then((res) => {
         console.log("resData :>> ", res.data);

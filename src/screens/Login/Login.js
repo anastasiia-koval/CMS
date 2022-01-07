@@ -10,7 +10,7 @@ import Collapse from "@material-ui/core/Collapse";
 import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import { fields } from "./fields";
-import axios from "../../util/axios";
+import axiosInstance from "../../util/axiosInstance";
 import UserContext from "../../context/User/UserContext";
 import jwt from "jwt-decode";
 const { REACT_APP_MY_ENV } = process.env;
@@ -68,7 +68,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
+    axiosInstance
       .post(`${REACT_APP_MY_ENV}/auth/local`, {
         identifier: values.email,
         password: values.password,

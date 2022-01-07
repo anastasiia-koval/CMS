@@ -1,7 +1,7 @@
 import axiosConfig from "axios";
 
-const axios = axiosConfig.create();
-axios.interceptors.request.use((config) => {
+const axiosInstance = axiosConfig.create();
+axiosInstance.interceptors.request.use((config) => {
   const accessToken = window.localStorage.getItem("jwt");
   if (accessToken) {
     config.headers = {
@@ -11,4 +11,4 @@ axios.interceptors.request.use((config) => {
   return config;
 });
 
-export default axios;
+export default axiosInstance;

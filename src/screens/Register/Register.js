@@ -9,7 +9,7 @@ import Collapse from "@material-ui/core/Collapse";
 import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import { fields } from "./fields";
-import axios from "../../util/axios";
+import axiosInstance from "../../util/axiosInstance";
 import UserContext from "../../context/User/UserContext";
 import { hasErrors, validateForm } from "../../util/validateForm";
 const { REACT_APP_MY_ENV } = process.env;
@@ -75,7 +75,7 @@ const Register = () => {
       return;
     }
 
-    axios
+    axiosInstance
       .post(`${REACT_APP_MY_ENV}/auth/local/register`, {
         email: values.email,
         username: values.username,

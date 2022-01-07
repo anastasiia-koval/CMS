@@ -7,7 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import axios from "axios";
+import axiosInstance from "../../util/axiosInstance";
 const { REACT_APP_MY_ENV } = process.env;
 
 const useStyles = makeStyles({
@@ -20,15 +20,8 @@ const Cars = (props = { userId: 0 }) => {
   const classes = useStyles();
   const [cars, setCars] = useState([]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${REACT_APP_MY_ENV}/cars?user.id=${props.userId}`)
-  //     .then((res) => {
-  //       setCars(res.data);
-  //     });
-  // }, []);
   useEffect(() => {
-    axios.get(`${REACT_APP_MY_ENV}/cars`).then((res) => {
+    axiosInstance.get(`${REACT_APP_MY_ENV}/cars`).then((res) => {
       setCars(res.data);
     });
   }, []);

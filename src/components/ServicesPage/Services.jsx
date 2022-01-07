@@ -7,7 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import axios from "axios";
+import axiosInstance from "../../util/axiosInstance";
 const { REACT_APP_MY_ENV } = process.env;
 
 const useStyles = makeStyles({
@@ -21,7 +21,7 @@ const Services = () => {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    axios.get(`${REACT_APP_MY_ENV}/services`).then((res) => {
+    axiosInstance.get(`${REACT_APP_MY_ENV}/services`).then((res) => {
       setServices(res.data);
     });
   }, []);

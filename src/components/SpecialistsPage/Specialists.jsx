@@ -7,7 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import axios from "axios";
+import axiosInstance from "../../util/axiosInstance";
 import getServicesString from "../../util/servicesUtil";
 const { REACT_APP_MY_ENV } = process.env;
 
@@ -22,7 +22,7 @@ const Specialists = () => {
   const [specialists, setSpecialists] = useState([]);
 
   useEffect(() => {
-    axios
+    axiosInstance
       .get(`${REACT_APP_MY_ENV}/specialists`)
       .then((res) => {
         setSpecialists(res.data);

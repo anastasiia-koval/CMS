@@ -1,4 +1,4 @@
-import axios from "../../util/axios";
+import axiosInstance from "../../util/axiosInstance";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PostComponent from "../../components/PostComponent/PostComponent";
@@ -9,7 +9,7 @@ const BlogPage = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState();
   useEffect(() => {
-    axios
+    axiosInstance
       .get(`${REACT_APP_MY_ENV}/posts`)
       .then((res) => {
         setPosts(res.data);

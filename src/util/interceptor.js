@@ -1,7 +1,7 @@
-import axios from "./axios";
+import axiosInstance from "./axiosInstance";
 
 const interceptor = (navigate, openSnackbar) => {
-  axios.interceptors.response.use(
+  axiosInstance.interceptors.response.use(
     (next) => Promise.resolve(next),
     (error) => {
       if (

@@ -7,7 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import axios from "axios";
+import axiosInstance from "../../util/axiosInstance";
 import UserContext from "../../context/User/UserContext";
 import getServicesString from "../../util/servicesUtil";
 const { REACT_APP_MY_ENV } = process.env;
@@ -24,7 +24,7 @@ const Reservations = () => {
   const [reservations, setReservations] = useState([]);
 
   useEffect(() => {
-    axios
+    axiosInstance
       .get(`${REACT_APP_MY_ENV}/reservations?user.id=${userId}`)
       .then((res) => {
         setReservations(res.data);
