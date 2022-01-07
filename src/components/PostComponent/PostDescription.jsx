@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../util/axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
@@ -51,7 +51,7 @@ const PostDescription = () => {
     },
     content: {
       textAlign: "justify",
-    }
+    },
   });
   const classes = useStyles();
   return (
@@ -107,7 +107,12 @@ const PostDescription = () => {
             style={{ objectFit: "cover", width: "100%", height: "100%" }}
           />
         </div>
-        <Typography className={classes.content} gutterBottom variant="h1" component="h1">
+        <Typography
+          className={classes.content}
+          gutterBottom
+          variant="h1"
+          component="h1"
+        >
           {post && post.title}
         </Typography>
       </div>

@@ -64,21 +64,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const links = [
-  { name: "Blog", href: "/blog" },
-  { name: "Pracownicy", href: "/specialists" },
-  //TODO remove cars
-  { name: "Cars", href: "/cars/3" },
-  { name: "Services", href: "/services" },
-  { name: "Reservations", href: "/reservations/3" },
-];
-
 const Navbar = () => {
+  // const { userId } = useContext(UserContext);
   const classes = useStyles();
   const { theme, setTheme } = useContext(ThemeContext);
-  const { username, isLoggedIn, handleLogout } = useContext(UserContext);
+  const { username, isLoggedIn, handleLogout, userId } =
+    useContext(UserContext);
+  console.log("username :>> ", username);
+  const context = useContext(UserContext);
+  console.log("userId :>> ", context);
+
   const navigate = useNavigate();
   const location = useLocation();
+  const links = [
+    { name: "Blog", href: "/blog" },
+    { name: "Pracownicy", href: "/specialists" },
+    //TODO remove cars
+    // { name: "Cars", href: "/cars" },
+    { name: "Services", href: "/services" },
+    { name: "Reservations", href: `/reservations/${userId}` },
+  ];
 
   const handleLoginButtonClick = () => {
     if (isLoggedIn) {
@@ -131,6 +136,7 @@ const Navbar = () => {
             variant="outlined"
             className={classes.button}
             startIcon={<Avatar className={classes.iconSpacer} />}
+            onClick={() => navigate("/userAccount")}
           >
             {username}
           </Button>

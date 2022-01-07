@@ -1,5 +1,5 @@
 import React, { useContext, createContext } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "./components/navbar/Navbar";
 import Login from "./screens/Login/Login";
@@ -9,10 +9,11 @@ import BlogPage from "./screens/BlogPage/BlogPage";
 import PostDescription from "./components/PostComponent/PostDescription";
 import { useParams } from "react-router-dom";
 import UserContext from "./context/User/UserContext";
-import Specialists from "./components/specialists/Specialists";
-import Cars from "./components/cars/Cars";
-import Services from "./components/services/Services";
-import Reservations from "./components/reservations/Reservations";
+import Specialists from "./components/SpecialistsPage/Specialists";
+import Cars from "./components/CarsPage/Cars";
+import Services from "./components/ServicesPage/Services";
+import Reservations from "./components/Reservations/Reservations";
+import UserAccountPage from "./screens/UserAccountPage/UserAccountPage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,20 +33,29 @@ export const GlobalContext = createContext({});
 const App = () => {
   const { isLoggedIn, handleLogout } = useContext(UserContext);
   const classes = useStyles();
+  console.log("isLoggedIn :>> ", isLoggedIn);
   return (
     <>
       <Navbar />
       <div className={classes.root}>
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route
+            path="/login"
+            element={isLoggedIn ? <Navigate to="/blog" /> : <Login />}
+          />
+          <Route
+            path="/register"
+            element={isLoggedIn ? <Navigate to="/blog" /> : <Register />}
+          />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<PostDescription />} />
           <Route path="/specialists" element={<Specialists />} />
-          <Route path="/cars/:user_id" element={<TmpCars />} />
+          {/* <Route path="/cars/:user_id" element={<TmpCars />} /> */}
+          <Route path="/cars" element={<Cars />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/reservations/:user_id" element={<TmpReservations />} />
+          <Route path="/reservations/:userId" element={<Reservations />} />
+          <Route path="/userAccount" element={<UserAccountPage />} />
         </Routes>
       </div>
     </>
@@ -54,14 +64,8 @@ const App = () => {
 
 //TODO remove it
 const TmpCars = () => {
-  const { user_id } = useParams();
-  return <Cars userId={user_id} />
-}
-
-//TODO remove it
-const TmpReservations = () => {
-  const { user_id } = useParams();
-  return <Reservations userId={user_id} />
-}
+  const { userId } = useContext(UserContext);
+  return <Cars userId={userId} />;
+};
 
 export default App;

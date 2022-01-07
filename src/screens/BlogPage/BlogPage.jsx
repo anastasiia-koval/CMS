@@ -21,11 +21,19 @@ const BlogPage = () => {
   }, []);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", }}>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       <Typography gutterBottom variant="h5" component="h2">
         Blog Serwisowy
       </Typography>
-      <div style={{ display: "flex", gap: "20px", marginTop: "20px", flexWrap: "wrap", justifyContent: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "20px",
+          marginTop: "20px",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
         {posts &&
           posts.map((post) => {
             return (
@@ -37,7 +45,7 @@ const BlogPage = () => {
                   navigate(`/blog/${post.id}`);
                 }}
                 published_at={post.published_at}
-                // userName={post.userID.username && post.userID.username}
+                userName={post.userID.username && post.userID.username}
               />
             );
           })}

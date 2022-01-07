@@ -3,7 +3,7 @@ import { useNavigate, Link as RouterLink } from "react-router-dom";
 import PaddedSite from "../../components/PaddedSite/PaddedSite";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link"
+import Link from "@material-ui/core/Link";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Collapse from "@material-ui/core/Collapse";
@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { fields } from "./fields";
 import axios from "../../util/axios";
 import UserContext from "../../context/User/UserContext";
+import jwt from "jwt-decode";
 const { REACT_APP_MY_ENV } = process.env;
 
 const useStyles = makeStyles((theme) => ({
@@ -73,8 +74,11 @@ const Login = () => {
         password: values.password,
       })
       .then((res) => {
+        console.log("resLogin :>> ", res);
         navigate("/");
-        handleLogin(res.data.user, res.data.jwt);
+        const token = jwt(res.data.jwt);
+        console.log("token :>> ", token);
+        handleLogin(res.data.user, res.data.jwt, token.id);
       })
       .catch((err) => {
         setError(err.response ? err.response.status : -1);
@@ -106,8 +110,11 @@ const Login = () => {
           </Alert>
         </Collapse>
         <Typography className={classes.input}>
-          Nie masz jeszcze konta? <Link component={RouterLink} to="/register">Stwórz je teraz!</Link>
-          </Typography>
+          Nie masz jeszcze konta?{" "}
+          <Link component={RouterLink} to="/register">
+            Stwórz je teraz!
+          </Link>
+        </Typography>
         <Button
           variant="outlined"
           color="primary"

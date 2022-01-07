@@ -5,6 +5,7 @@ const keysToKeep = ["blocked", "confirmed", "email", "username"];
 export default (state, action) => {
   switch (action.type) {
     case types.HANDLE_LOGIN: {
+      localStorage.setItem("userId", action.userId);
       localStorage.setItem("jwt", action.jwt);
 
       const user = {};
@@ -20,6 +21,7 @@ export default (state, action) => {
       return {
         ...state,
         ...user,
+        userId: action.userId,
         role,
         jwt: action.jwt,
         isLoggedIn: true,

@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer } from "react";
 import { types } from "./types";
 import UserContext from "./UserContext";
 import UserReducer from "./UserReducer";
@@ -15,6 +15,7 @@ const UserState = (props) => {
       type: "",
     },
     jwt: "",
+    userId: "",
   };
 
   const [state, dispatch] = useReducer(
@@ -27,10 +28,11 @@ const UserState = (props) => {
   useEffect(() => {
     localStorage.setItem("userState", JSON.stringify(state));
     localStorage.setItem("jwt", state.jwt);
+    localStorage.setItem("userId", state.userId);
   }, [state]);
 
-  const handleLogin = (user, jwt) => {
-    dispatch({ type: types.HANDLE_LOGIN, user, jwt });
+  const handleLogin = (user, jwt, userId) => {
+    dispatch({ type: types.HANDLE_LOGIN, user, jwt, userId });
   };
 
   const handleLogout = () => {
