@@ -29,11 +29,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export const GlobalContext = createContext({});
+
 const App = () => {
-  const { isLoggedIn, handleLogout } = useContext(UserContext);
+  const { isLoggedIn } = useContext(UserContext);
   const classes = useStyles();
-  console.log("isLoggedIn :>> ", isLoggedIn);
+  // console.log("isLoggedIn :>> ", isLoggedIn);
   return (
     <>
       <Navbar />

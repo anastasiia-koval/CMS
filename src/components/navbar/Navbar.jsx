@@ -98,7 +98,7 @@ const Navbar = () => {
     <AppBar elevation={3} className={classes.appbar} color="transparent">
       <MuiToolbar className={classes.toolbar}>
         <MuiLink underline="none" to="/" component={Link}>
-          <Typography className={classes.name}>Serwis samochodowy</Typography>
+          <Typography className={classes.name}>Car-Service</Typography>
         </MuiLink>
         {links.map((link) => (
           <MuiLink
