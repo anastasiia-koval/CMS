@@ -1,4 +1,4 @@
-import React, { useContext, createContext } from "react";
+import React, { useContext } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "./components/navbar/Navbar";
@@ -7,7 +7,6 @@ import Register from "./screens/Register/Register";
 import MainPage from "./screens/MainPage/MainPage";
 import BlogPage from "./screens/BlogPage/BlogPage";
 import PostDescription from "./components/PostComponent/PostDescription";
-import { useParams } from "react-router-dom";
 import UserContext from "./context/User/UserContext";
 import Specialists from "./components/SpecialistsPage/Specialists";
 import Cars from "./components/CarsPage/Cars";
@@ -33,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const { isLoggedIn } = useContext(UserContext);
   const classes = useStyles();
-  // console.log("isLoggedIn :>> ", isLoggedIn);
   return (
     <>
       <Navbar />
@@ -42,11 +40,11 @@ const App = () => {
           <Route path="/" element={<MainPage />} />
           <Route
             path="/login"
-            element={isLoggedIn ? <Navigate to="/blog" /> : <Login />}
+            element={isLoggedIn ? <Navigate to="/" /> : <Login />}
           />
           <Route
             path="/register"
-            element={isLoggedIn ? <Navigate to="/blog" /> : <Register />}
+            element={isLoggedIn ? <Navigate to="/" /> : <Register />}
           />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<PostDescription />} />
