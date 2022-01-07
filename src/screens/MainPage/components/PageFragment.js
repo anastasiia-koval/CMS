@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: "1",
     flexBasis: "40%",
     marginRight: "20px",
-    maxWidth: "400px",
+    maxWidth: "700px",
     minHeight: "300px",
     maxHeight: "300px",
     objectFit: "cover",
@@ -56,7 +56,9 @@ const PageFragment = ({ article }) => {
         <Typography component="h2" variant="h2">
           {article.header}
         </Typography>
-        <Markdown>{article.articleContent}</Markdown>
+        <Typography variant="body1">
+          <Markdown>{article.articleContent}</Markdown>
+        </Typography>
       </Box>
     </Box>
   );

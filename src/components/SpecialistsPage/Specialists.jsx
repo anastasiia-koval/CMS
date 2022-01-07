@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
+import {
+  Chip,
+  Paper,
+  TableRow,
+  TableHead,
+  TableContainer,
+  TableCell,
+  TableBody,
+  Table,
+} from "@material-ui/core";
 import axiosInstance from "../../util/axiosInstance";
 import getServicesString from "../../util/servicesUtil";
 const { REACT_APP_MY_ENV } = process.env;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 650,
   },
-});
+  colorAvailable: {
+    backgroundColor: "#4caf50",
+  },
+  colorNotAvailable: {
+    backgroundColor: "#f44336",
+  },
+}));
 
 const Specialists = () => {
   const classes = useStyles();
@@ -37,12 +46,10 @@ const Specialists = () => {
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Surname</TableCell>
-            <TableCell>JobTitle</TableCell>
-            <TableCell>Availability</TableCell>
-          </TableRow>
+          <TableCell>Name</TableCell>
+          <TableCell>Surname</TableCell>
+          <TableCell>JobTitle</TableCell>
+          <TableCell>Availability</TableCell>
         </TableHead>
         <TableBody>
           {specialists.map((specialist) => (
@@ -51,7 +58,14 @@ const Specialists = () => {
               <TableCell>{specialist.surname}</TableCell>
               <TableCell>{getServicesString(specialist.services)}</TableCell>
               <TableCell>
-                {specialist.available ? "Available" : "Not available"}
+                {specialist.available ? (
+                  <Chip label="Available" className={classes.colorAvailable} />
+                ) : (
+                  <Chip
+                    label="Not available"
+                    className={classes.colorNotAvailable}
+                  />
+                )}
               </TableCell>
             </TableRow>
           ))}

@@ -8,7 +8,6 @@ const { REACT_APP_MY_ENV } = process.env;
 const useStyles = makeStyles(() => ({
   root: {
     width: "100%",
-    maxWidth: "900px",
     margin: "auto",
   },
   header: {

@@ -77,9 +77,9 @@ const Navbar = () => {
     { name: "Blog", href: "/blog" },
     { name: "Pracownicy", href: "/specialists" },
     //TODO remove cars
-    { name: "Cars", href: "/cars" },
+    // { name: "Cars", href: "/cars" },
     { name: "Services", href: "/services" },
-    { name: "Reservations", href: `/reservations/${userId}` },
+    // { name: "Reservations", href: `/reservations/${userId}` },
   ];
 
   const handleLoginButtonClick = () => {

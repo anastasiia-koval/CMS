@@ -33,8 +33,8 @@ const Cars = (props = { userId: 0 }) => {
           <TableRow>
             <TableCell>Company</TableCell>
             <TableCell>Model</TableCell>
-            <TableCell>car number</TableCell>
-            <TableCell>vin</TableCell>
+            <TableCell>Car number</TableCell>
+            <TableCell>VIN</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
