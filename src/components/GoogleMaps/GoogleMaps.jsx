@@ -10,12 +10,14 @@ import Geocode from "react-geocode";
 import { ThemeContext } from "../../context/Theme/ThemeState";
 import { useEffect } from "react";
 import Loading from "../Loading/Loading";
-const { REACT_APP_MY_ENV } = process.env;
+const { REACT_APP_MY_ENV, REACT_APP_GOOGLE_MAPS_API_KEY } = process.env;
 
 const GoogleMaps = (props) => {
+  console.log("`${GOOGLE_API_KEY}` :>> ", REACT_APP_GOOGLE_MAPS_API_KEY);
+  console.log("`REACT_APP_MY_ENV` :>> ", REACT_APP_MY_ENV);
   const [clickedMarker, setClickedMarker] = useState();
   const [center, setLocation] = useState([]);
-  Geocode.setApiKey("AIzaSyC5NPc8U9dad27Gi6xIeygy2OUGHolWxoI");
+  Geocode.setApiKey(REACT_APP_GOOGLE_MAPS_API_KEY);
   const { openSnackbar } = useContext(ThemeContext);
   const containerStyle = {
     width: "100%",
@@ -50,7 +52,7 @@ const GoogleMaps = (props) => {
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyC5NPc8U9dad27Gi6xIeygy2OUGHolWxoI",
+    googleMapsApiKey: REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
   const [map, setMap] = useState(null);
