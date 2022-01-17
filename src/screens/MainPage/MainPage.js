@@ -3,12 +3,15 @@ import axios from "axios";
 import { ThemeContext } from "../../context/Theme/ThemeState";
 import PageFragment from "./components/PageFragment";
 import { Typography, makeStyles } from "@material-ui/core";
+import Loading from "../../components/Loading/Loading";
+import GoogleMaps from "../../components/GoogleMaps/GoogleMaps";
 const { REACT_APP_MY_ENV } = process.env;
 
 const useStyles = makeStyles(() => ({
   root: {
     width: "100%",
     margin: "auto",
+    height: "100%",
   },
   header: {
     marginBottom: "30px",
@@ -18,6 +21,7 @@ const useStyles = makeStyles(() => ({
 const MainPage = () => {
   const classes = useStyles();
   const [articles, setArticles] = useState([]);
+  const [location, setLocation] = useState([]);
   const { openSnackbar } = useContext(ThemeContext);
 
   useEffect(() => {
@@ -31,7 +35,20 @@ const MainPage = () => {
       .catch(() => {
         openSnackbar(true, "Wystąpił błąd. Spróbuj odświeżyć stronę.");
       });
+    // axios
+    //   .get(`${REACT_APP_MY_ENV}/locations`)
+    //   .then((res) => {
+    //     console.log("res :>> ", res);
+    //     setLocation(res.data);
+    //   })
+    //   .catch((err) => {
+    //     openSnackbar(true, "Wystąpił błąd. Spróbuj odświeżyć stronę.");
+    //   });
   }, []);
+
+  if (articles.length === 0 && location.length === 0 && location) {
+    return <Loading />;
+  }
 
   return (
     <div className={classes.root}>
@@ -41,6 +58,7 @@ const MainPage = () => {
       {articles.map((article) => (
         <PageFragment key={article.id} article={article} />
       ))}
+      <GoogleMaps locations={location.length !== 0 && location && location} />
     </div>
   );
 };
