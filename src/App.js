@@ -17,7 +17,7 @@ import UserAccountPage from "./screens/UserAccountPage/UserAccountPage";
 const useStyles = makeStyles((theme) => ({
   root: {
     boxSizing: "border-box",
-    padding: "86px 175px",
+    margin: "86px 175px",
     minHeight: "100vh",
     backgroundColor: theme.palette.background.default,
     [theme.breakpoints.down("xs")]: {
@@ -46,6 +46,7 @@ const App = () => {
             path="/register"
             element={isLoggedIn ? <Navigate to="/" /> : <Register />}
           />
+          <Route path="/userAccount" element={<UserAccountPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<PostDescription />} />
           <Route path="/specialists" element={<Specialists />} />
@@ -53,7 +54,6 @@ const App = () => {
           <Route path="/cars" element={<Cars />} />
           <Route path="/services" element={<Services />} />
           <Route path="/reservations/:userId" element={<Reservations />} />
-          <Route path="/userAccount" element={<UserAccountPage />} />
         </Routes>
       </div>
     </>

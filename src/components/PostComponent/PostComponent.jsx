@@ -13,7 +13,7 @@ const PostComponent = (props) => {
   const useStyles = makeStyles({
     root: {
       minWidth: "350px",
-      maxWidth: "500px",
+      maxWidth: "450px",
       flex: "1",
     },
     media: {

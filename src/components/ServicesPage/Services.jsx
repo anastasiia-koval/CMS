@@ -8,6 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import axiosInstance from "../../util/axiosInstance";
+import Loading from "../Loading/Loading";
 const { REACT_APP_MY_ENV } = process.env;
 
 const useStyles = makeStyles({
@@ -26,12 +27,15 @@ const Services = () => {
     });
   }, []);
 
+  if (services.length === 0) {
+    return <Loading />;
+  }
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Title</TableCell>
+            <TableCell>Nazwa</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

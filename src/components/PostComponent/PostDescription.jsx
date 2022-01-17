@@ -1,26 +1,78 @@
 import axiosInstance from "../../util/axiosInstance";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Typography from "@material-ui/core/Typography";
+import React, { useEffect, useState, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import ArrowBackRoundedIcon from "@material-ui/icons/ArrowBackRounded";
 import { makeStyles } from "@material-ui/core/styles";
 import TodayIcon from "@material-ui/icons/Today";
-import { useNavigate } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import { Button, Typography } from "@material-ui/core";
+import UserContext from "../../context/User/UserContext";
 import Markdown from "react-markdown";
+import Loading from "../Loading/Loading";
+import Comments from "./Comments";
 const { REACT_APP_MY_ENV } = process.env;
 
+const useStyles = makeStyles({
+  userDate: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: "20px",
+    justifyContent: "space-between",
+  },
+  dateContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  subText: {
+    fontSize: "14px",
+    margin: "0",
+    marginLeft: "6px",
+    color: "#555555",
+  },
+  button: {
+    border: "1px solid rgba(0, 0, 0, 0.23)",
+    backgroundColor: "#FFFFFFB7",
+  },
+  content: {
+    textAlign: "justify",
+  },
+  postInfo: {
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: "20px",
+  },
+  imageContainer: {
+    width: "100%",
+    height: "300px",
+    marginBottom: "10px",
+    "& img": {
+      objectFit: "cover",
+      width: "100%",
+      height: "100%",
+    },
+  },
+});
+
 const PostDescription = () => {
+  const classes = useStyles();
   const { id } = useParams();
-  console.log("id :>> ", id);
-  const [post, setPost] = useState();
+  const { userId } = useContext(UserContext);
+  const [post, setPost] = useState([]);
+  const [comments, setComments] = useState([]);
   const navigate = useNavigate();
 
   const convertData = (date) => {
-    const data = new Date(date);
-    return (
-      data.getFullYear() + "-" + (data.getMonth() + 1) + "-" + data.getDate()
-    );
+    const fullDate = new Date(date);
+    const month = `${
+      fullDate.getMonth() + 1 < 10
+        ? `0${fullDate.getMonth() + 1}`
+        : fullDate.getMonth()
+    }`;
+    const data = `${
+      fullDate.getDate() < 10 ? `0${fullDate.getDate()}` : fullDate.getDate()
+    }`;
+    return fullDate.getFullYear() + "-" + month + "-" + data;
   };
   useEffect(() => {
     axiosInstance
@@ -28,32 +80,15 @@ const PostDescription = () => {
       .then((res) => {
         console.log("resData :>> ", res.data);
         setPost(res.data);
+        setComments(res.data.commentsIDs);
       })
       .catch((err) => console.log("err :>> ", err));
   }, []);
 
-  const useStyles = makeStyles({
-    date: {
-      fontSize: "14px",
-      margin: "0",
-      marginLeft: "6px",
-      color: "#555555",
-    },
-    userName: {
-      fontSize: "14px",
-      marginBottom: "0",
-      marginLeft: "6px",
-      color: "#555555",
-    },
-    button: {
-      border: "1px solid rgba(0, 0, 0, 0.23)",
-      backgroundColor: "#FFFFFFB7",
-    },
-    content: {
-      textAlign: "justify",
-    },
-  });
-  const classes = useStyles();
+  if (post.length === 0) {
+    return <Loading />;
+  }
+  console.log("LALALA :>> ");
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div style={{ marginBottom: "20px" }}>
@@ -66,46 +101,22 @@ const PostDescription = () => {
         </Button>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          marginBottom: "20px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            marginBottom: "20px",
-            justifyContent: "space-between",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
+      <div className={classes.postInfo}>
+        <div className={classes.userDate}>
+          <div className={classes.dateContainer}>
             <TodayIcon />
-            <Typography gutterBottom className={classes.date}>
+            <Typography gutterBottom className={classes.subText}>
               {post && convertData(post.published_at)}
             </Typography>
           </div>
           {post && post.userID.username && (
-            <Typography gutterBottom className={classes.userName}>
+            <Typography gutterBottom className={classes.subText}>
               Dodano przez {post.userID.username}
             </Typography>
           )}
         </div>
-        <div style={{ width: "100%", height: "300px", marginBottom: "10px" }}>
-          <img
-            src={post && `${REACT_APP_MY_ENV}${post.picture.url}`}
-            alt=""
-            style={{ objectFit: "cover", width: "100%", height: "100%" }}
-          />
+        <div className={classes.imageContainer}>
+          <img src={post && `${REACT_APP_MY_ENV}${post.picture.url}`} alt="" />
         </div>
         <Typography
           className={classes.content}
@@ -121,6 +132,13 @@ const PostDescription = () => {
           {post && <Markdown children={post.description} />}
         </Typography>
       </div>
+      <Comments
+        postId={id}
+        userId={userId}
+        post={post}
+        setComments={setComments}
+        comments={comments}
+      />
     </div>
   );
 };

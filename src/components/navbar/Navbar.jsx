@@ -78,7 +78,7 @@ const Navbar = () => {
     { name: "Pracownicy", href: "/specialists" },
     //TODO remove cars
     // { name: "Cars", href: "/cars" },
-    { name: "Services", href: "/services" },
+    { name: "Usługi", href: "/services" },
     // { name: "Reservations", href: `/reservations/${userId}` },
   ];
 

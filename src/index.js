@@ -39,6 +39,10 @@ const Wrapper = ({ children }) => {
             main: theme === "light" ? "#0A1929" : "#FFFFFF",
             secondary: theme === "light" ? "#46505A" : "#AAB4BE",
           },
+          button: {
+            main: theme === "light" ? "#007FFF" : "#FFFFFF",
+            hover: theme === "light" ? "#0372E2" : "#D8D6D6",
+          },
         },
         typography: {
           fontFamily: ['"IBM Plex Sans"', "Roboto", "sans-serif"].join(", "),
