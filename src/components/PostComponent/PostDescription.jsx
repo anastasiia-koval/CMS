@@ -1,4 +1,5 @@
 import axiosInstance from "../../util/axiosInstance";
+import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ArrowBackRoundedIcon from "@material-ui/icons/ArrowBackRounded";
@@ -75,7 +76,7 @@ const PostDescription = () => {
     return fullDate.getFullYear() + "-" + month + "-" + data;
   };
   useEffect(() => {
-    axiosInstance
+    axios
       .get(`${REACT_APP_MY_ENV}/posts/${id}`)
       .then((res) => {
         console.log("resData :>> ", res.data);

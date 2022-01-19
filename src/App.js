@@ -13,11 +13,12 @@ import Cars from "./components/CarsPage/Cars";
 import Services from "./components/ServicesPage/Services";
 import Reservations from "./components/Reservations/Reservations";
 import UserAccountPage from "./screens/UserAccountPage/UserAccountPage";
+import Footer from "./components/Footer/Footer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     boxSizing: "border-box",
-    margin: "86px 175px",
+    margin: "106px 175px",
     minHeight: "100vh",
     backgroundColor: theme.palette.background.default,
     [theme.breakpoints.down("xs")]: {
@@ -56,6 +57,7 @@ const App = () => {
           <Route path="/reservations/:userId" element={<Reservations />} />
         </Routes>
       </div>
+      <Footer />
     </>
   );
 };

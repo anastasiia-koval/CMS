@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { Button, TextField, makeStyles } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
+import axiosInstance from "../../util/axiosInstance";
+const { REACT_APP_MY_ENV } = process.env;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,18 +34,20 @@ const Search = (props) => {
 
   const handleClick = (data, searchValue) => {
     let filtered = [];
-    let notFound = "";
-    data.filter((post) => {
-      if (searchValue === null) {
-        filtered.push(post);
-        return filtered;
-      } else if (post.title.toLowerCase().includes(searchValue.toLowerCase())) {
-        filtered.push(post);
-        return filtered;
-      }
-    });
+
+    axiosInstance
+      .get(`${REACT_APP_MY_ENV}/posts`, { params: { title: searchValue } })
+      .then((res) => {
+        console.log("res :>> ", res);
+        res.data.map((post) => {
+          filtered.push(post);
+        });
+        props.setPosts(filtered);
+      })
+      .catch((err) => {
+        console.log("err :>> ", err);
+      });
     console.log("filtered :>> ", filtered);
-    props.setPosts(filtered);
     return filtered;
   };
 
@@ -67,7 +71,7 @@ const Search = (props) => {
           setInputValue(newInputValue);
         }}
         id="controllable-states-demo"
-        options={getPostsTitle(props.posts)}
+        options={getPostsTitle(props.postsCopy)}
         className={classes.input}
         renderInput={(params) => (
           <TextField {...params} label="Szukaj..." variant="outlined" />

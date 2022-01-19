@@ -13,6 +13,7 @@ import { ThemeContext } from "../../context/Theme/ThemeState";
 import UserContext from "../../context/User/UserContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import clsx from "clsx";
+import { ReactComponent as LogoIcon } from "./logo.svg";
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -95,7 +96,8 @@ const Navbar = () => {
     <AppBar elevation={3} className={classes.appbar} color="transparent">
       <MuiToolbar className={classes.toolbar}>
         <MuiLink underline="none" to="/" component={Link}>
-          <Typography className={classes.name}>Car-Service</Typography>
+          <LogoIcon style={{ marginRight: "35px", marginLeft: "-20px" }} />
+          {/* <Typography className={classes.name}>Car-Service</Typography> */}
         </MuiLink>
         {links.map((link) => (
           <MuiLink

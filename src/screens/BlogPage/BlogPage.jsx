@@ -1,10 +1,10 @@
-import axiosInstance from "../../util/axiosInstance";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PostComponent from "../../components/PostComponent/PostComponent";
 import Loading from "../../components/Loading/Loading";
 import { Typography, makeStyles } from "@material-ui/core";
 import Search from "../../components/Search/Search";
+import axios from "axios";
 const { REACT_APP_MY_ENV } = process.env;
 
 const useStyles = makeStyles(() => ({
@@ -27,7 +27,7 @@ const BlogPage = () => {
   const [postsCopy, setPostsCopy] = useState([]);
 
   useEffect(() => {
-    axiosInstance
+    axios
       .get(`${REACT_APP_MY_ENV}/posts`)
       .then((res) => {
         setPosts(res.data);
@@ -42,6 +42,7 @@ const BlogPage = () => {
   if (posts.length === 0) {
     return <Loading />;
   }
+  console.log("posts :>> ", posts);
   return (
     <div className={classes.root}>
       <Typography gutterBottom variant="h5" component="h2">

@@ -13,8 +13,6 @@ import Loading from "../Loading/Loading";
 const { REACT_APP_MY_ENV, REACT_APP_GOOGLE_MAPS_API_KEY } = process.env;
 
 const GoogleMaps = (props) => {
-  console.log("`${GOOGLE_API_KEY}` :>> ", REACT_APP_GOOGLE_MAPS_API_KEY);
-  console.log("`REACT_APP_MY_ENV` :>> ", REACT_APP_MY_ENV);
   const [clickedMarker, setClickedMarker] = useState();
   const [center, setLocation] = useState([]);
   Geocode.setApiKey(REACT_APP_GOOGLE_MAPS_API_KEY);
@@ -29,7 +27,7 @@ const GoogleMaps = (props) => {
       .get(`${REACT_APP_MY_ENV}/locations`)
       .then((res) => {
         const coordinates = [];
-        res.data.map((location) => {
+        res.data.map((location, key) => {
           Geocode.fromAddress(
             location.country + " " + location.city + " " + location.streetName
           )
