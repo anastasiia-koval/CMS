@@ -1,6 +1,6 @@
 import { Typography, Box, makeStyles, Paper } from "@material-ui/core";
 import React, { useContext, useState } from "react";
-import Reservations from "../../components/Reservations/Reservations";
+// import Reservations from "../../components/Reservations/Reservations";
 import UserContext from "../../context/User/UserContext";
 
 const useStyles = makeStyles((theme) => ({
@@ -50,7 +50,10 @@ const UserAccountPage = () => {
         <Typography className={classes.text} variant="h3">
           Moje rezerwacje
         </Typography>
-        <Reservations />
+        {/* TODO 
+          Display all user reservations
+        */}
+        {/* <Reservations /> */}
       </Box>
       <div></div>
     </div>

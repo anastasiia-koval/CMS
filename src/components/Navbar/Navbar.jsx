@@ -68,7 +68,7 @@ const Navbar = () => {
   // const { userId } = useContext(UserContext);
   const classes = useStyles();
   const { theme, setTheme } = useContext(ThemeContext);
-  const { username, isLoggedIn, handleLogout, userId } =
+  const { username, isLoggedIn, handleLogout, userId, role } =
     useContext(UserContext);
 
   const navigate = useNavigate();
@@ -76,10 +76,7 @@ const Navbar = () => {
   const links = [
     { name: "Blog", href: "/blog" },
     { name: "Pracownicy", href: "/specialists" },
-    //TODO remove cars
-    // { name: "Cars", href: "/cars" },
-    { name: "Services", href: "/services" },
-    // { name: "Reservations", href: `/reservations/${userId}` },
+    { name: "Usługi", href: "/services" },
   ];
 
   const handleLoginButtonClick = () => {
@@ -97,22 +94,23 @@ const Navbar = () => {
         <MuiLink underline="none" to="/" component={Link}>
           <Typography className={classes.name}>Car-Service</Typography>
         </MuiLink>
-        {links.map((link) => (
-          <MuiLink
-            underline="none"
-            component={Link}
-            to={link.href}
-            key={link.name}
-          >
-            <Typography
-              className={clsx(classes.link, {
-                [classes.activeLink]: location.pathname.includes(link.href),
-              })}
+        {role.name !== "Specialist" &&
+          links.map((link) => (
+            <MuiLink
+              underline="none"
+              component={Link}
+              to={link.href}
+              key={link.name}
             >
-              {link.name}
-            </Typography>
-          </MuiLink>
-        ))}
+              <Typography
+                className={clsx(classes.link, {
+                  [classes.activeLink]: location.pathname.includes(link.href),
+                })}
+              >
+                {link.name}
+              </Typography>
+            </MuiLink>
+          ))}
         <div className={classes.spacer} />
         <Button
           size="small"

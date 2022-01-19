@@ -47,11 +47,14 @@ const PageFragment = ({ article }) => {
   const classes = useStyles({ alignRight: article.alignToRight });
   return (
     <Box className={classes.root}>
-      <img
-        src={`${REACT_APP_MY_ENV}${getImageUrl(article.articlePhoto)}`}
-        className={classes.image}
-        alt={article.articlePhoto.alternativeText || ""}
-      />
+      {article.articlePhoto ? (
+        <img
+          src={`${REACT_APP_MY_ENV}${getImageUrl(article.articlePhoto)}`}
+          className={classes.image}
+          alt={article.articlePhoto.alternativeText || ""}
+        />
+      ) : null}
+
       <Box className={classes.textRoot}>
         <Typography component="h2" variant="h2">
           {article.header}

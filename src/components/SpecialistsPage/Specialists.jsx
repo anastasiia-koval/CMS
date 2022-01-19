@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import axiosInstance from "../../util/axiosInstance";
 import getServicesString from "../../util/servicesUtil";
+import Loading from "../Loading/Loading";
 const { REACT_APP_MY_ENV } = process.env;
 
 const useStyles = makeStyles((theme) => ({
@@ -19,10 +20,12 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 650,
   },
   colorAvailable: {
-    backgroundColor: "#4caf50",
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #4caf50",
   },
   colorNotAvailable: {
-    backgroundColor: "#f44336",
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #f44336",
   },
 }));
 
@@ -41,15 +44,17 @@ const Specialists = () => {
         console.log("err :>> ", err);
       });
   }, []);
-
+  if (specialists.length === 0) {
+    return <Loading />;
+  }
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
-          <TableCell>Name</TableCell>
-          <TableCell>Surname</TableCell>
-          <TableCell>JobTitle</TableCell>
-          <TableCell>Availability</TableCell>
+          <TableCell>Imie</TableCell>
+          <TableCell>Nazwisko</TableCell>
+          <TableCell>Stanowisko</TableCell>
+          <TableCell>Dostępność</TableCell>
         </TableHead>
         <TableBody>
           {specialists.map((specialist) => (
@@ -59,10 +64,10 @@ const Specialists = () => {
               <TableCell>{getServicesString(specialist.services)}</TableCell>
               <TableCell>
                 {specialist.available ? (
-                  <Chip label="Available" className={classes.colorAvailable} />
+                  <Chip label="Dostępny" className={classes.colorAvailable} />
                 ) : (
                   <Chip
-                    label="Not available"
+                    label="Nie dostępny"
                     className={classes.colorNotAvailable}
                   />
                 )}
