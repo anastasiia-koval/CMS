@@ -9,9 +9,7 @@ import BlogPage from "./screens/BlogPage/BlogPage";
 import PostDescription from "./components/PostComponent/PostDescription";
 import UserContext from "./context/User/UserContext";
 import Specialists from "./components/SpecialistsPage/Specialists";
-import Cars from "./components/CarsPage/Cars";
 import Services from "./components/ServicesPage/Services";
-import Reservations from "./components/Reservations/Reservations";
 import UserAccountPage from "./screens/UserAccountPage/UserAccountPage";
 import Footer from "./components/Footer/Footer";
 
@@ -31,14 +29,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const App = () => {
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, role } = useContext(UserContext);
   const classes = useStyles();
   return (
     <>
       <Navbar />
       <div className={classes.root}>
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route
+            path="/"
+            element={
+              role.name === "Specialist" ? (
+                <Navigate to="/userAccount" />
+              ) : (
+                <MainPage />
+              )
+            }
+          />
           <Route
             path="/login"
             element={isLoggedIn ? <Navigate to="/" /> : <Login />}
@@ -48,24 +55,19 @@ const App = () => {
             element={isLoggedIn ? <Navigate to="/" /> : <Register />}
           />
           <Route path="/userAccount" element={<UserAccountPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:id" element={<PostDescription />} />
-          <Route path="/specialists" element={<Specialists />} />
-          {/* <Route path="/cars/:user_id" element={<TmpCars />} /> */}
-          <Route path="/cars" element={<Cars />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/reservations/:userId" element={<Reservations />} />
+          {role.name !== "Specialist" && (
+            <React.Fragment>
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:id" element={<PostDescription />} />
+              <Route path="/specialists" element={<Specialists />} />
+              <Route path="/services" element={<Services />} />
+            </React.Fragment>
+          )}
         </Routes>
       </div>
       <Footer />
     </>
   );
-};
-
-//TODO remove it
-const TmpCars = () => {
-  const { userId } = useContext(UserContext);
-  return <Cars userId={userId} />;
 };
 
 export default App;
