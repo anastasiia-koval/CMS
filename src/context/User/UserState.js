@@ -16,6 +16,7 @@ const UserState = (props) => {
     },
     jwt: "",
     userId: "",
+    locations: [],
   };
 
   const [state, dispatch] = useReducer(
@@ -39,8 +40,14 @@ const UserState = (props) => {
     dispatch({ type: types.HANDLE_LOGOUT, initialState });
   };
 
+  const setLocations = (locations) => {
+    dispatch({ type: types.SET_LOCATIONS, locations });
+  };
+
   return (
-    <UserContext.Provider value={{ ...state, handleLogin, handleLogout }}>
+    <UserContext.Provider
+      value={{ ...state, handleLogin, handleLogout, setLocations }}
+    >
       {props.children}
     </UserContext.Provider>
   );

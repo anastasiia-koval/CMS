@@ -17,15 +17,16 @@ import { ThemeContext } from "../../context/Theme/ThemeState";
 import { useEffect } from "react";
 import Loading from "../Loading/Loading";
 import { useTheme } from "@material-ui/core/styles";
+import UserContext from "../../context/User/UserContext";
 const { REACT_APP_MY_ENV, REACT_APP_GOOGLE_MAPS_API_KEY } = process.env;
 
 const GoogleMaps = (props) => {
   const [clickedMarker, setClickedMarker] = useState();
   const [center, setLocation] = useState([]);
-  const [locations, setLocations] = useState([]);
-  Geocode.setApiKey(REACT_APP_GOOGLE_MAPS_API_KEY);
   const { openSnackbar } = useContext(ThemeContext);
+  const { locations } = useContext(UserContext);
   const theme = useTheme();
+  Geocode.setApiKey(REACT_APP_GOOGLE_MAPS_API_KEY);
   const containerStyle = {
     width: "100%",
     height: "300px",
@@ -34,30 +35,22 @@ const GoogleMaps = (props) => {
   };
 
   useEffect(() => {
-    axios
-      .get(`${REACT_APP_MY_ENV}/locations`)
-      .then((res) => {
-        setLocations(res.data);
-        const coordinates = [];
-        res.data.forEach((location) => {
-          Geocode.fromAddress(
-            location.country + " " + location.city + " " + location.streetName
-          )
-            .then((res) => {
-              coordinates.push({
-                lat: res.results[0].geometry.location.lat,
-                lng: res.results[0].geometry.location.lng,
-              });
-              setLocation((prev) => prev.concat(coordinates));
-            })
-            .catch((err) => {
-              openSnackbar(true, "Wystąpił błąd. Spróbuj odświeżyć stronę.");
-            });
+    const coordinates = [];
+    locations.forEach((location) => {
+      Geocode.fromAddress(
+        location.country + " " + location.city + " " + location.streetName
+      )
+        .then((res) => {
+          coordinates.push({
+            lat: res.results[0].geometry.location.lat,
+            lng: res.results[0].geometry.location.lng,
+          });
+          setLocation((prev) => prev.concat(coordinates));
+        })
+        .catch((err) => {
+          openSnackbar(true, "Wystąpił błąd. Spróbuj odświeżyć stronę.");
         });
-      })
-      .catch((err) => {
-        openSnackbar(true, "Wystąpił błąd. Spróbuj odświeżyć stronę.");
-      });
+    });
   }, []);
 
   const { isLoaded } = useJsApiLoader({

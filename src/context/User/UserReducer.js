@@ -32,6 +32,12 @@ export default (state, action) => {
         ...action.initialState,
       };
     }
+    case types.SET_LOCATIONS: {
+      return {
+        ...state,
+        locations: action.locations,
+      };
+    }
     default: {
       return {
         ...state,

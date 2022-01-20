@@ -1,26 +1,29 @@
 import React, { useEffect, useContext, useMemo } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import Footer from "./components/Footer/Footer"
+import Footer from "./components/Footer/Footer";
 import { CssBaseline } from "@material-ui/core";
 import { createTheme, useTheme, ThemeProvider } from "@material-ui/core/styles";
 import ThemeState, { ThemeContext } from "./context/Theme/ThemeState";
+import UserContext from "./context/User/UserContext";
 import UserState from "./context/User/UserState";
 import interceptor from "./util/interceptor";
 import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import Snackbar from "./components/Snackbar/Snackbar";
+import axios from "axios";
+const { REACT_APP_MY_ENV } = process.env;
 
 const Wrapper = ({ children }) => {
   const { theme, openSnackbar } = useContext(ThemeContext);
+  const { setLocations } = useContext(UserContext);
   const defaultTheme = useTheme();
   interceptor(useNavigate(), openSnackbar);
-  // const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-  // useEffect(() => {
-  //   if (!hasChanged) {
-  //     setTheme(prefersDarkMode ? "dark" : "light", false);
-  //   }
-  // }, [prefersDarkMode]);
+  useEffect(() => {
+    axios.get(`${REACT_APP_MY_ENV}/locations`).then((res) => {
+      setLocations(res.data);
+    });
+  }, []);
 
   const muiTheme = useMemo(
     () =>
@@ -91,8 +94,8 @@ const Wrapper = ({ children }) => {
             root: {
               paddingTop: "0px",
               paddingBottom: "0px",
-            }
-          }
+            },
+          },
         },
       }),
     [theme]
