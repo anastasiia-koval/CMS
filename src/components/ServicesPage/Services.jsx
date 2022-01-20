@@ -7,6 +7,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import ArrowForward from "@material-ui/icons/ArrowForward";
+import { Link } from "react-router-dom";
 import axiosInstance from "../../util/axiosInstance";
 import Loading from "../Loading/Loading";
 const { REACT_APP_MY_ENV } = process.env;
@@ -36,12 +39,25 @@ const Services = () => {
         <TableHead>
           <TableRow>
             <TableCell>Nazwa</TableCell>
+            <TableCell align="right">Rezerwuj wizytę</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {services.map((service) => (
             <TableRow key={service.id}>
               <TableCell>{service.title}</TableCell>
+              <TableCell align="right">
+                <Button
+                  component={Link}
+                  to="/reservation"
+                  state={{ service: service.id }}
+                  color="primary"
+                  variant="outlined"
+                  endIcon={<ArrowForward />}
+                >
+                  Rezerwuj
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

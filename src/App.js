@@ -10,20 +10,24 @@ import PostDescription from "./components/PostComponent/PostDescription";
 import UserContext from "./context/User/UserContext";
 import Specialists from "./components/SpecialistsPage/Specialists";
 import Services from "./components/ServicesPage/Services";
+import Reservation from "./screens/Reservation/Reservation";
 import UserAccountPage from "./screens/UserAccountPage/UserAccountPage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     boxSizing: "border-box",
-    margin: "86px 175px",
+    padding: "86px 175px",
     minHeight: "100vh",
     backgroundColor: theme.palette.background.default,
-    [theme.breakpoints.down("xs")]: {
-      padding: "64px 30px 30px",
+    [theme.breakpoints.down("sm")]: {
+      padding: "86px 30px 30px",
     },
     [theme.breakpoints.down(350)]: {
       padding: "64px 5% 5%",
     },
+  },
+  wrapper: {
+    margin: "auto",
   },
 }));
 
@@ -31,9 +35,9 @@ const App = () => {
   const { isLoggedIn, role } = useContext(UserContext);
   const classes = useStyles();
   return (
-    <>
+    <div className={classes.root}>
       <Navbar />
-      <div className={classes.root}>
+      <div className={classes.wrapper}>
         <Routes>
           <Route
             path="/"
@@ -60,11 +64,13 @@ const App = () => {
               <Route path="/blog/:id" element={<PostDescription />} />
               <Route path="/specialists" element={<Specialists />} />
               <Route path="/services" element={<Services />} />
+              <Route path="/reservation" element={<Reservation />} />
             </React.Fragment>
           )}
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
-    </>
+    </div>
   );
 };
 
