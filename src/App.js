@@ -12,6 +12,7 @@ import Specialists from "./components/SpecialistsPage/Specialists";
 import Services from "./components/ServicesPage/Services";
 import Reservation from "./screens/Reservation/Reservation";
 import UserAccountPage from "./screens/UserAccountPage/UserAccountPage";
+import Footer from "./components/Footer/Footer";
 
 const useStyles = makeStyles((theme) => ({
   root: {

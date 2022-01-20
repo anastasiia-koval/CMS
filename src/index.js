@@ -1,9 +1,9 @@
 import React, { useEffect, useContext, useMemo } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import Footer from "./components/Footer/Footer"
 import { CssBaseline } from "@material-ui/core";
 import { createTheme, useTheme, ThemeProvider } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 import ThemeState, { ThemeContext } from "./context/Theme/ThemeState";
 import UserState from "./context/User/UserState";
 import interceptor from "./util/interceptor";
@@ -11,8 +11,7 @@ import { BrowserRouter as Router, useNavigate } from "react-router-dom";
 import Snackbar from "./components/Snackbar/Snackbar";
 
 const Wrapper = ({ children }) => {
-  const { theme, hasChanged, setTheme, openSnackbar, closeSnackbar } =
-    useContext(ThemeContext);
+  const { theme, openSnackbar } = useContext(ThemeContext);
   const defaultTheme = useTheme();
   interceptor(useNavigate(), openSnackbar);
   // const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
@@ -91,7 +90,7 @@ const Wrapper = ({ children }) => {
           MuiListItem: {
             root: {
               paddingTop: "0px",
-              paddingBotom: "0px",
+              paddingBottom: "0px",
             }
           }
         },
@@ -110,6 +109,7 @@ ReactDOM.render(
           <Wrapper>
             <CssBaseline>
               <App />
+              <Footer />
               <Snackbar />
             </CssBaseline>
           </Wrapper>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Button,
   TextField,
@@ -8,6 +8,8 @@ import {
 } from "@material-ui/core";
 import axiosInstance from "../../util/axiosInstance";
 import Avatar from "@material-ui/core/Avatar";
+import { ThemeContext } from "../../context/Theme/ThemeState";
+import axios from "axios";
 const { REACT_APP_MY_ENV } = process.env;
 
 const useStyles = makeStyles((theme) => ({
@@ -49,6 +51,7 @@ const Comments = (props) => {
   const [value, setValue] = useState("");
   const [users, setUsers] = useState();
   const MAXLENGTH = 100;
+  const { openSnackbar } = useContext(ThemeContext);
 
   const convertData = (date) => {
     const fullDate = new Date(date);
@@ -64,7 +67,7 @@ const Comments = (props) => {
   };
 
   useEffect(() => {
-    axiosInstance
+    axios
       .get(`${REACT_APP_MY_ENV}/users`)
       .then((res) => {
         setUsers(res.data);
@@ -95,7 +98,7 @@ const Comments = (props) => {
         ]);
       })
       .catch((err) => {
-        console.log("err :>> ", err);
+        openSnackbar(true, "Wystąpił błąd. Spróbuj odświeżyć stronę.");
       });
   };
 
@@ -147,6 +150,7 @@ const Comments = (props) => {
           className={classes.button}
           variant="contained"
           onClick={() => addComment(props.postId, props.userId, value)}
+          // disabled
         >
           Add comment
         </Button>
