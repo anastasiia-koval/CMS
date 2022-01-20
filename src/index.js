@@ -88,6 +88,12 @@ const Wrapper = ({ children }) => {
               backgroundColor: theme === "light" ? "#FFFFFF" : "#0A1929",
             },
           },
+          MuiListItem: {
+            root: {
+              paddingTop: "0px",
+              paddingBotom: "0px",
+            }
+          }
         },
       }),
     [theme]
