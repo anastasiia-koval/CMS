@@ -36,7 +36,7 @@ const GoogleMaps = (props) => {
 
   useEffect(() => {
     const coordinates = [];
-    locations.forEach((location) => {
+    locations?.forEach((location) => {
       Geocode.fromAddress(
         location.country + " " + location.city + " " + location.streetName
       )
@@ -51,7 +51,7 @@ const GoogleMaps = (props) => {
           openSnackbar(true, "Wystąpił błąd. Spróbuj odświeżyć stronę.");
         });
     });
-  }, []);
+  }, [locations]);
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -78,7 +78,7 @@ const GoogleMaps = (props) => {
         Gdzie nas znaleźć?
       </Typography>
       <List>
-        {locations.map((location) => (
+        {locations?.map((location) => (
           <ListItem key={location.id}>
             <ListItemIcon>
               <PinIcon />

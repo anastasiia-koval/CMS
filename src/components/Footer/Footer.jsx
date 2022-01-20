@@ -51,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
 const Footer = () => {
   const classes = useStyles();
   const { locations } = useContext(UserContext);
-  console.log(locations);
 
   return (
     <div color="transparent" className={classes.footer}>
@@ -66,7 +65,7 @@ const Footer = () => {
         </div>
         <div className={classes.data}>
           <Typography className={classes.header}>Gdzie nas znajdziesz?</Typography>
-          {locations.map((location) => (
+          {locations?.map((location) => (
               <Typography key={location.id}>{location.streetName}</Typography>
             ))}
         </div>
